@@ -15,10 +15,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.java.blog.dtos.ApiResponse;
 import com.java.blog.dtos.CategoryDto;
-import com.java.blog.entities.Category;
 import com.java.blog.services.ICategoryService;
 
 @RestController
@@ -30,36 +28,31 @@ public class CategoryController {
 	
 	@PostMapping
 	public ResponseEntity<ApiResponse> createCategory(@Valid @RequestBody CategoryDto categoryDto) {
-		CategoryDto createdCategoryDto = this.categoryService.createCategory(categoryDto);
-		ApiResponse apiResponse = new ApiResponse("Category created successfully", createdCategoryDto, true);
-		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.CREATED);
+		ApiResponse apiResponse = this.categoryService.createCategory(categoryDto);
+		return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/{categoryId}")
 	public ResponseEntity<ApiResponse> updateCategory(@Valid @RequestBody CategoryDto categoryDto, @PathVariable Long categoryId) {
-		CategoryDto updatedCategoryDto = this.categoryService.updateCategory(categoryDto, categoryId);
-		ApiResponse apiResponse = new ApiResponse("Category updated successfully", updatedCategoryDto, true);
-		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.OK);
+		ApiResponse apiResponse = this.categoryService.updateCategory(categoryDto, categoryId);
+		return new ResponseEntity<>(apiResponse, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{categoryId}")
 	public ResponseEntity<ApiResponse> deleteCategory(@PathVariable Long categoryId) {
-		this.categoryService.deleteCategory(categoryId);
-		ApiResponse apiResponse = new ApiResponse("Category deleted successfully", null, true);
-		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.OK);
+		ApiResponse apiResponse = this.categoryService.deleteCategory(categoryId);
+		return new ResponseEntity<>(apiResponse, HttpStatus.OK);
 	}
 	
 	@GetMapping("/{categoryId}")
 	public ResponseEntity<ApiResponse> getCategory(@PathVariable Long categoryId) {
-		CategoryDto categoryDto = this.categoryService.getCategory(categoryId);
-		ApiResponse apiResponse = new ApiResponse("Category details", categoryDto, true);
-		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.OK);
+		ApiResponse apiResponse = this.categoryService.getCategory(categoryId);
+		return new ResponseEntity<>(apiResponse, HttpStatus.OK);
 	}
 	
 	@GetMapping
 	public ResponseEntity<ApiResponse> getCategories() {
-		List<CategoryDto> categoryList = this.categoryService.getCategories();
-		ApiResponse apiResponse = new ApiResponse("Category details", categoryList, true);
+		ApiResponse apiResponse = this.categoryService.getCategories();
 		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.OK);
 	}
 }

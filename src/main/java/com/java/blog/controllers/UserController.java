@@ -28,36 +28,31 @@ public class UserController {
 	
 	@PostMapping("/")
 	public ResponseEntity<ApiResponse> createUser(@Valid @RequestBody UserDto userDto) {
-		UserDto createdUser = userService.createUser(userDto);
-		ApiResponse apiResponse = new ApiResponse("User created successfully", createdUser, true);
-		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.CREATED);
+		ApiResponse apiResponse = userService.createUser(userDto);
+		return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
 	}
 
 	@PutMapping("/{userId}")
-	public ResponseEntity<ApiResponse> updateUser(@Valid @RequestBody UserDto userDto, @PathVariable("userId") Integer userId) {
-		UserDto updatedUser = userService.updateUser(userDto, userId);
-		ApiResponse apiResponse = new ApiResponse("User updated successfully", updatedUser, true);
+	public ResponseEntity<ApiResponse> updateUser(@Valid @RequestBody UserDto userDto, @PathVariable("userId") Long userId) {
+		ApiResponse apiResponse = userService.updateUser(userDto, userId);
 		return ResponseEntity.ok(apiResponse);
 	}
 	
 	@DeleteMapping("/{userId}")
-	public ResponseEntity<ApiResponse> deleteUser(@PathVariable("userId") Integer userId) {
-		this.userService.deleteUser(userId);
-		ApiResponse apiResponse = new ApiResponse("User deleted Successfully", null, true);
-		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.OK);
+	public ResponseEntity<ApiResponse> deleteUser(@PathVariable("userId") Long userId) {
+		ApiResponse apiResponse = this.userService.deleteUser(userId);
+		return new ResponseEntity<>(apiResponse, HttpStatus.OK);
 	}
 	
 	@GetMapping("/")
 	public ResponseEntity<ApiResponse> getAllUsers() {
-		List<UserDto> userList = this.userService.getAllUsers();
-		ApiResponse apiResponse = new ApiResponse("List of users", userList, true);
+		ApiResponse apiResponse = this.userService.getAllUsers();
 		return ResponseEntity.ok(apiResponse);
 	}
 	
 	@GetMapping("/{userId}")
-	public ResponseEntity<ApiResponse> getSingleUserById(@PathVariable Integer userId) {
-		UserDto user = this.userService.getUserById(userId);
-		ApiResponse apiResponse = new ApiResponse("User detail of id : "+ userId, user, true);
+	public ResponseEntity<ApiResponse> getSingleUserById(@PathVariable Long userId) {
+		ApiResponse apiResponse = this.userService.getUserById(userId);
 		return ResponseEntity.ok(apiResponse);
 	}
 	

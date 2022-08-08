@@ -2,18 +2,19 @@ package com.java.blog.services;
 
 import java.util.List;
 
+import com.java.blog.dtos.ApiResponse;
 import com.java.blog.dtos.UserDto;
 
 public interface IUserService {
 	
-	UserDto createUser(UserDto userDto);
+	ApiResponse createUser(UserDto userDto);
 	
-	UserDto updateUser(UserDto userDto, Integer userId);
+	ApiResponse updateUser(UserDto userDto, Long userId);
 	
-	UserDto getUserById(Integer userId);
+	ApiResponse getUserById(Long userId);
 	
-	List<UserDto> getAllUsers();
+	ApiResponse getAllUsers();
 	
-	void deleteUser(Integer userId);
+	ApiResponse deleteUser(Long userId);
 
 }
